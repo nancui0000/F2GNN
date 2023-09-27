@@ -32,9 +32,9 @@ python main.py  --alpha=1e-06 --dataset='pokec-n' --dropout=0.1 --ego_number=30 
 
 For the pokec-z dataset:
 
-![image-20230927115801292](C:\Users\cuina\AppData\Roaming\Typora\typora-user-images\image-20230927115801292.png)
+![image-20230927115801292](image-20230927115801292.png)
 
 For the pokec-n dataset:
 
-![image-20230927113620536](C:\Users\cuina\AppData\Roaming\Typora\typora-user-images\image-20230927113620536.png)
+![image-20230927113620536](image-20230927113620536.png)
 
