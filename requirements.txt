@@ -1,0 +1,12 @@
+dgl
+matplotlib
+networkx
+numpy
+optuna
+pandas
+scikit_learn
+scipy
+torch
+torch_geometric
+torchvision
+tqdm
