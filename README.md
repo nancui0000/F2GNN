@@ -2,10 +2,6 @@
 
 Codes for ICDM 2023 paper: *Equipping Federated Graph Neural Networks with Structure-aware Group Fairness*
 
-## Description
-
-A detailed explanation of the project, including its purpose, usage, and functionality. Explain the problems it solves, its applications, and how it works.
-
 ## Installation
 
 ```bash
