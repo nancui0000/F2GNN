@@ -56,7 +56,7 @@ For the pokec-n dataset:
 Please cite our paper if you find this code useful for your research:
 
 ```
-N. Cui, X. Wang, W. H. Wang, V. Chen and Y. Ning, "Equipping Federated Graph Neural Networks with Structure-aware Group Fairness," 2023 IEEE International Conference on Data Mining (ICDM), Shanghai,China, 2023.
+N. Cui, X. Wang, W. H. Wang, V. Chen and Y. Ning, "Equipping Federated Graph Neural Networks with Structure-aware Group Fairness," 2023 IEEE International Conference on Data Mining (ICDM), Shanghai, China, 2023.
 ```
 
 **BibTeX**
@@ -71,5 +71,5 @@ N. Cui, X. Wang, W. H. Wang, V. Chen and Y. Ning, "Equipping Federated Graph Neu
   number={},
   pages={},
   doi={}
-
+}
 ```
