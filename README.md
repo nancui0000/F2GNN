@@ -1,6 +1,6 @@
 # F2GNN
 
-Codes for ICDM 2023 paper: "*Equipping Federated Graph Neural Networks with Structure-aware Group Fairness*".
+Code for ICDM 2023 paper: "*Equipping Federated Graph Neural Networks with Structure-aware Group Fairness*".
 
 Nan Cui, Xiuling Wang, [Wendy Hui Wang](https://sites.google.com/view/wendy-wang/home), Violet Chen, [Yue Ning](https://yue-ning.github.io/)
 
