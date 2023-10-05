@@ -29,7 +29,6 @@ class FairGNN(nn.Module):
         self.device = 'cuda' if args.gpu else 'cpu'
         self.GNN = get_model(nfeat, args)
         self.classifier = nn.Linear(nhid, 1)
-        # self.adv = torch.Linear(nhid,1)
 
         self.G_params = list(self.GNN.parameters()) + list(self.classifier.parameters())
         self.optimizer_G = torch.optim.Adam(self.G_params, lr=args.lr, weight_decay=args.weight_decay)
@@ -52,10 +51,7 @@ class FairGNN(nn.Module):
         y = self.classifier(h)
         y_train = y[idx_train_with_mask]
         labels_train = labels[idx_train_with_mask]
-        s_score = sens[idx_train_with_mask].unsqueeze(1).float()
-        y_score = torch.sigmoid(y_train)
-        y_score_for_loss = torch.sigmoid(y_train / self.args.tau_fair_loss)
-        self.cov = torch.abs(torch.mean((s_score - torch.mean(s_score)) * (y_score - torch.mean(y_score))))
+        y_for_loss = torch.sigmoid(y_train / self.args.tau_fair_loss)
 
         y_output = y_train.squeeze()
         preds = (y_output > 0).type_as(labels_train)
@@ -63,7 +59,7 @@ class FairGNN(nn.Module):
         correct = correct.sum()
         self.acc = correct / len(labels_train)
 
-        self.parity, self.equality = fairness_loss(y_score_for_loss, labels_train, sens[idx_train_with_mask])
+        self.parity, self.equality = fairness_loss(y_for_loss, labels_train, sens[idx_train_with_mask])
 
         self.cls_loss = self.criterion(y_train, labels_train.unsqueeze(1).float())
 
@@ -71,10 +67,8 @@ class FairGNN(nn.Module):
 
             self.G_loss = self.cls_loss + self.args.alpha * (self.parity + self.equality)
 
-        elif self.args.penalty == 'cov':
-            self.G_loss = self.cls_loss + self.args.alpha * self.cov
         else:
-            self.G_loss = self.cls_loss + self.args.alpha * self.cov
+            self.G_loss = self.cls_loss
 
         self.G_loss.backward()
 

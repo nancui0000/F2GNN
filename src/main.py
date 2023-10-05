@@ -120,15 +120,15 @@ if __name__ == '__main__':
                                                                                   args,
                                                                                   path=path)
 
-    # elif args.dataset == 'NBA':
-    #     dataset = 'nba'
-    #     sens_attr = 'country'
-    #     predict_attr = 'SALARY'
-    #     path = '../dataset/NBA'
-    #
-    #     graph, G, adj, features, labels, sens, num_nodes, edge_index = load_pokec(dataset, sens_attr, predict_attr,
-    #                                                                               args,
-    #                                                                               path=path)
+    elif args.dataset == 'NBA':
+        dataset = 'nba'
+        sens_attr = 'country'
+        predict_attr = 'SALARY'
+        path = '../dataset/NBA'
+
+        graph, G, adj, features, labels, sens, num_nodes, edge_index = load_pokec(dataset, sens_attr, predict_attr,
+                                                                                  args,
+                                                                                  path=path)
 
     label_idx = np.where(labels >= 0)[0]
     sens_idx = set(np.where(sens >= 0)[0])
@@ -235,7 +235,6 @@ if __name__ == '__main__':
     counter = 0
     patience = args.patience
     inter_intra_ratio = []
-    total_covs = []
 
     for i in range(len(clients)):
         local_models[i] = local_models[i].to(device)
@@ -243,7 +242,7 @@ if __name__ == '__main__':
     start = t()
     np.random.seed(args.seed)
     for epoch in tqdm(range(args.epochs)):
-        local_weights, local_losses, local_cls_losses, local_covs, local_acc = [], [], [], [], []
+        local_weights, local_losses, local_cls_losses, local_acc = [], [], [], []
 
         local_parity, local_equality = [], []
 
@@ -326,7 +325,6 @@ if __name__ == '__main__':
             local_weights.append(copy.deepcopy(local_models[i].state_dict()))
             local_losses.append(local_models[i].G_loss.item())
             local_cls_losses.append(local_models[i].cls_loss.item())
-            local_covs.append(local_models[i].cov.item())
 
             local_parity.append(local_models[i].parity)
             local_equality.append(local_models[i].equality)
@@ -366,24 +364,7 @@ if __name__ == '__main__':
             global_weights = average_weights(local_weights)
         else:
 
-            if args.aggregate_method == 'inter_intra':
-                temp_weights_vector = [inter_ratio_per_client[i] * intra_ratio_per_client[i] for i in egos]
-                temp_weights_vector = softmax(temp_weights_vector)
-
-                temp_weights_vector2 = [(1 / (local_models[i].equality + local_models[i].parity + 1E-5)) for i in
-                                        egos]
-                temp_weights_vector2 = torch.tensor(temp_weights_vector2, device=device)
-                temp_weights_vector2 = torch.softmax(temp_weights_vector2, dim=-1)
-
-                temp_weights_vector2 = [torch.exp(i) for i in temp_weights_vector2]
-
-                # Compute normalized weights vector
-                normalized_weights_vector = [(args.lambda1 * w1 + args.lambda2 * w2) / args.tau
-                                             for w1, w2 in zip(temp_weights_vector, temp_weights_vector2)]
-                normalized_weights_vector = torch.tensor(normalized_weights_vector, device=device)
-                normalized_weights_vector = torch.softmax(normalized_weights_vector, dim=-1)
-
-            elif args.aggregate_method == '1-|inter-intra|':
+            if args.aggregate_method == '1-|inter-intra|':
                 difference_weight_vector = [abs(inter_ratio_per_client[i] - intra_ratio_per_client[i]) for i in
                                             egos]
                 difference_weight_vector2 = [(1 - i) for i in difference_weight_vector]
@@ -401,7 +382,6 @@ if __name__ == '__main__':
                                              for w1, w2 in zip(temp_weights_vector, temp_weights_vector2)]
                 normalized_weights_vector = torch.tensor(normalized_weights_vector, device=device)
                 normalized_weights_vector = torch.softmax(normalized_weights_vector, dim=-1)
-
             else:
                 print("args.aggregate_method is wrong!")
             global_weights = aggregate_weights(local_weights, normalized_weights_vector)
