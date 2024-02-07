@@ -62,12 +62,16 @@ N. Cui, X. Wang, W. H. Wang, V. Chen and Y. Ning, "Equipping Federated Graph Neu
 **BibTeX**
 
 ```latex
-@INPROCEEDINGS{ ,
+@INPROCEEDINGS{10415822,
   author={Cui, Nan and Wang, Xiuling and Wang, Wendy Hui and Chen, Violet and Ning, Yue},
   booktitle={2023 IEEE International Conference on Data Mining (ICDM)}, 
   title={Equipping Federated Graph Neural Networks with Structure-aware Group Fairness}, 
   year={2023},
   volume={},
+  number={},
+  pages={980-985},
+  keywords={Training;Analytical models;Privacy;Training data;Data models;Graph neural networks;Security;Graph Neural Networks;Federated Learning;Group Fairness},
+  doi={10.1109/ICDM58522.2023.00111}}
   number={},
   pages={},
   doi={}
