@@ -72,8 +72,4 @@ N. Cui, X. Wang, W. H. Wang, V. Chen and Y. Ning, "Equipping Federated Graph Neu
   pages={980-985},
   keywords={Training;Analytical models;Privacy;Training data;Data models;Graph neural networks;Security;Graph Neural Networks;Federated Learning;Group Fairness},
   doi={10.1109/ICDM58522.2023.00111}}
-  number={},
-  pages={},
-  doi={}
-}
 ```
